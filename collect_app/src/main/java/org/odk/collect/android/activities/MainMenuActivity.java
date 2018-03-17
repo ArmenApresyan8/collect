@@ -87,6 +87,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private Button viewSentFormsButton;
     private Button reviewDataButton;
     private Button getFormsButton;
+    private Button sendToButton;
     private View reviewSpacer;
     private View getFormsSpacer;
     private AlertDialog alertDialog;
@@ -152,6 +153,19 @@ public class MainMenuActivity extends AppCompatActivity {
                             .logAction(this, "uploadForms", "click");
                     Intent i = new Intent(getApplicationContext(),
                             InstanceUploaderList.class);
+                    startActivity(i);
+                }
+            }
+        });
+
+        //send to another device
+        sendToButton = findViewById(R.id.send_to);
+        sendToButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Collect.allowClick()) {
+                    Intent i = new Intent(getApplicationContext(),
+                            SendToAnotherDeviceActivity.class);
                     startActivity(i);
                 }
             }
@@ -584,6 +598,7 @@ public class MainMenuActivity extends AppCompatActivity {
             if (completedCount > 0) {
                 sendDataButton.setText(
                         getString(R.string.send_data_button, String.valueOf(completedCount)));
+                sendToButton.setText(getString(R.string.send_to_another_device, String.valueOf(completedCount)));
             } else {
                 sendDataButton.setText(getString(R.string.send_data));
             }
